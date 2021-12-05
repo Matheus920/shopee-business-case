@@ -87,4 +87,4 @@ class SalesService:
         for seller in cls._ordered_ranking:
             for sale in sales_list:
                 if seller[0] == sale["seller"]:
-                    print(sale)
+                    print(json.dumps(sale))
