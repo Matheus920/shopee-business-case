@@ -80,3 +80,11 @@ class SalesService:
                         index = index + 1
                         continue
                 cls._ordered_ranking.insert(index, tuple([row["seller"], row["value"]]))
+
+        with open(cls._sales_path, "r", encoding="utf-8") as sales_list:
+            sales_list = json.load(sales_list)
+
+        for seller in cls._ordered_ranking:
+            for sale in sales_list:
+                if seller[0] == sale["seller"]:
+                    print(sale)
