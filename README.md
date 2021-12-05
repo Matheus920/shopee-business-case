@@ -24,6 +24,9 @@ by the script and how to input them in a correct way.
 ATTENTION: In this script, validation was implemented. So, if you pass an incorrect argument for any
 of the options, a validation error will show in your terminal, so please be aware.
 
+All the data stored in the application is under the data folder. So, if you will to reset your current enviroment,
+just delete the rank.csv and sales.json files and all the stored data will be gone.
+
 # Dependencies
 
 This code was written in Python3.7 and all third-party modules used are contained in the
