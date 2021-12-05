@@ -1,4 +1,5 @@
 import argparse
+import os.path
 import sys
 
 from src.service.sales import SalesService
@@ -30,5 +31,7 @@ def main(args):
     SalesService.print_sale_list()
 
 
-if __name__ == "main":
+if __name__ == "__main__":
+    if not os.path.exists("./src/data"):
+        os.makedirs("./src/data")
     main(sys.argv[1:])
