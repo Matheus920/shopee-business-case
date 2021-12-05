@@ -2,17 +2,18 @@ from src.domain.seller import Seller
 
 
 class SellersService:
-    def __init__(self):
-        self.sellers = [
-            Seller("Matheus"),
-            Seller("Yullia"),
-            Seller("Marcos"),
-            Seller("Alessandra"),
-            Seller("Anderson"),
-        ]
+    sellers = [
+        Seller("Matheus"),
+        Seller("Yullia"),
+        Seller("Marcos"),
+        Seller("Alessandra"),
+        Seller("Anderson"),
+    ]
 
-    def validate_seller(self, seller_name):
-        return seller_name in [seller.name for seller in self.sellers]
+    @classmethod
+    def validate_seller(cls, seller_name):
+        return seller_name in [seller.name for seller in cls.sellers]
 
-    def avaliable_sellers(self):
-        return [seller.name for seller in self.sellers]
+    @classmethod
+    def avaliable_sellers(cls):
+        return [seller.name for seller in cls.sellers]
