@@ -52,6 +52,7 @@ class SalesService:
                 new_json = [data]
                 json.dump(new_json, current_file)
 
+        tempfile.close()
         tempfile = NamedTemporaryFile(mode="w", delete=False)
 
         with open(
@@ -68,6 +69,7 @@ class SalesService:
                     row["value"] = float(row["value"]) + data["value"]
                 csv_writer.writerow(row)
         shutil.move(tempfile.name, cls._csv_path)
+        tempfile.close()
 
     @classmethod
     def print_sale_list(cls):
