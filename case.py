@@ -1,6 +1,7 @@
 import argparse
 
 from src.service.sales import SalesService
+from src.service.sellers import SellersService
 
 parser = argparse.ArgumentParser(description="Register a sale for a specific seller")
 
@@ -12,6 +13,10 @@ parser.add_argument("--value", help="Sale value")
 
 result = vars(parser.parse_args())
 
+SellersService.build_csv()
+
 validated_result = SalesService.validate_schema(result)
 
 SalesService.insert_data(validated_result)
+
+SalesService.print_sale_list()
