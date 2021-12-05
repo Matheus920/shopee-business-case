@@ -12,3 +12,10 @@ repos:
     rev: 4.0.1
     hooks:
     - id: flake8
+- repo: local
+  hooks:
+      - id: unnittesting
+        name: unittesting
+        entry: python test.py
+        language: python
+        types: [python]
