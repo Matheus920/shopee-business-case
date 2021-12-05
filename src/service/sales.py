@@ -10,6 +10,8 @@ from schema import And, Schema, Use
 from src.service.sellers import SellersService
 from src.utils.date_validation import date_validation
 
+"""Static class for actions between the sales and the database"""
+
 
 class SalesService:
     _schema = Schema(
@@ -29,18 +31,24 @@ class SalesService:
     _sales_path = (Path(__file__).parent / "../data/sales.json").resolve()
     _ordered_ranking = list()
 
+    """Validates the provided dict with user data upon the pre-defined schema"""
+
     @classmethod
-    def validate_schema(cls, data):
+    def validate_schema(cls, data: dict) -> dict:
 
         data = {k: v for k, v in data.items() if v is not None}
 
         return cls._schema.validate(data)
 
+    """After validation, data can be inserted both in json as in the csv file"""
+
     @classmethod
-    def insert_data(cls, data):
+    def insert_data(cls, data: dict) -> None:
         tempfile = NamedTemporaryFile(mode="w", delete=False)
         file_exists = os.path.exists(cls._sales_path)
 
+        # If the user is appending data, we recover the existing json,
+        # otherwise we create a new one
         if file_exists:
             with open(cls._sales_path, "r", encoding="utf-8") as current_file, tempfile:
                 current_json = json.load(current_file)
@@ -55,6 +63,9 @@ class SalesService:
         tempfile.close()
         tempfile = NamedTemporaryFile(mode="w", delete=False)
 
+        # CSV was chosen due to it low complexity,
+        # since we just want to store the relation between each seller
+        # and their rank
         with open(
             cls._csv_path, "r", encoding="utf-8", newline=""
         ) as rank_file, tempfile:
@@ -71,8 +82,11 @@ class SalesService:
         shutil.move(tempfile.name, cls._csv_path)
         tempfile.close()
 
+    """Outputs a json object for each record of a sale,
+    ordered by sellers performances"""
+
     @classmethod
-    def print_sale_list(cls):
+    def print_sale_list(cls) -> None:
         with open(cls._csv_path, "r", encoding="utf-8") as rank_csv:
             csv_reader = csv.DictReader(rank_csv, fieldnames=["seller", "value"])
             for row in csv_reader:
