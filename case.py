@@ -2,11 +2,6 @@ import argparse
 
 from src.service.sales import SalesService
 
-
-def register_sell():
-    raise NotImplementedError
-
-
 parser = argparse.ArgumentParser(description="Register a sale for a specific seller")
 
 parser.add_argument("--seller", help="Seller name")
@@ -19,4 +14,4 @@ result = vars(parser.parse_args())
 
 validated_result = SalesService.validate_schema(result)
 
-print(validated_result)
+SalesService.insert_data(validated_result)
