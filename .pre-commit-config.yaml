@@ -17,5 +17,6 @@ repos:
       - id: unnittesting
         name: unittesting
         entry: python test.py
-        language: python
+        always_run: true
+        language: system
         types: [python]
